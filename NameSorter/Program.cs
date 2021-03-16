@@ -10,13 +10,13 @@ namespace NameSorter
         static Program()
         {
             var builder = new ContainerBuilder();
-            builder.RegisterType<FileHandler>().SingleInstance();
+            builder.RegisterType<FileHandler>().As<IFileHandler>().SingleInstance();
             _container = builder.Build();
         }
 
         static void Main(string[] args)
         {
-            var fileHandler = _container.Resolve<FileHandler>();
+            var fileHandler = _container.Resolve<IFileHandler>();
             var result = fileHandler.ReadFromFile("namelist.txt");
             foreach (var item in result)
             {
