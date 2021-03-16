@@ -11,19 +11,16 @@ namespace NameSorter.FileOperation
     public class FileHandler : IFileHandler
     {
         private string line;
-        private int counter;
 
         public FileHandler()
         {
             line = "";
-            counter = 0;
         }
 
         public IList<IPerson> ReadFromFile(string filePath)
         {
             IList<IPerson> result = new List<IPerson>();
             line = "";
-            counter = 0;
 
             StreamReader file = new StreamReader(filePath);
             while ((line = file.ReadLine()) != null)

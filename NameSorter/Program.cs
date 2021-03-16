@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using NameSorter.FileOperation;
+using NameSorter.Sorter;
 using System;
 using System.Linq;
 
@@ -12,24 +13,14 @@ namespace NameSorter
         {
             var builder = new ContainerBuilder();
             builder.RegisterType<FileHandler>().As<IFileHandler>().SingleInstance();
+            builder.RegisterType<NameSort>().As<ISort>().SingleInstance();
             _container = builder.Build();
         }
 
         static void Main(string[] args)
         {
-            var fileHandler = _container.Resolve<IFileHandler>();
-            var unsortedList = fileHandler.ReadFromFile("unsorted-names-list.txt");
-            var sortedList = unsortedList.OrderBy(x => x.LastName).ThenBy(x => x.GivenNames).Select(x =>
-            {
-                return (x.GivenNames + ' ' + x.LastName);
-            });
-
-            foreach (var item in sortedList)
-            {
-                Console.WriteLine($"{item}");
-            }
-
-            fileHandler.WriteToFile(sortedList.ToList(), "sorted-names-list.txt");
+            var nameSorter = _container.Resolve<ISort>();
+            nameSorter.Sort();
             Console.ReadLine();
         }
     }
