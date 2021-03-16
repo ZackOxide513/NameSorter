@@ -32,5 +32,10 @@ namespace NameSorter.FileOperation
             file.Close();
             return result;
         }
+
+        public void WriteToFile(IList<string> content , string filePath)
+        {
+            File.WriteAllLines(filePath, content);
+        }
     }
 }

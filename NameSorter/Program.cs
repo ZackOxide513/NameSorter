@@ -22,6 +22,8 @@ namespace NameSorter
             {
                 Console.WriteLine($"{item}");
             }
+
+            fileHandler.WriteToFile(result, "sortednamelist.txt");
             Console.ReadLine();
         }
     }
