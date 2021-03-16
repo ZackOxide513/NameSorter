@@ -6,9 +6,14 @@ using System.Threading.Tasks;
 
 namespace NameSorter.DataModel
 {
-    class Person
+    public class Person : IPerson
     {
-        string GivenNames { get; set; }
-        string LastName { get; set; }
+        public string GivenNames { get; }
+        public string LastName { get; }
+        public Person(string givenNames, string lastName)
+        {
+            GivenNames = givenNames;
+            LastName = lastName;
+        }
     }
 }
