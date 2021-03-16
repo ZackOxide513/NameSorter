@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace NameSorter.FileOperation
 {
-    public class FileHandler
+    public class FileHandler : IFileHandler
     {
         private string line;
         private int counter;
@@ -21,9 +21,11 @@ namespace NameSorter.FileOperation
         public IList<string> ReadFromFile(string filePath)
         {
             IList<string> result = new List<string>();
-            
+            line = "";
+            counter = 0;
+
             StreamReader file = new StreamReader(filePath);
-            while((line = file.ReadLine()) != null)
+            while ((line = file.ReadLine()) != null)
             {
                 result.Add(line);
                 counter++;
@@ -33,7 +35,7 @@ namespace NameSorter.FileOperation
             return result;
         }
 
-        public void WriteToFile(IList<string> content , string filePath)
+        public void WriteToFile(IList<string> content, string filePath)
         {
             File.WriteAllLines(filePath, content);
         }
