@@ -22,19 +22,27 @@ namespace NameSorter.FileOperation
             IList<IPerson> result = new List<IPerson>();
             _line = "";
 
-            StreamReader file = new StreamReader(filePath);
-            while ((_line = file.ReadLine()) != null)
+            try
             {
-                // Get index of last white space to substring GivenNames and LastName
-                var lastSpaceIndex = _line.LastIndexOf(' ');
-                string lastName = _line.Substring(lastSpaceIndex + 1);
-                string givenNames = _line.Substring(0, lastSpaceIndex);
+                StreamReader file = new StreamReader(filePath);
+                while ((_line = file.ReadLine()) != null)
+                {
+                    // Get index of last white space to substring GivenNames and LastName
+                    var lastSpaceIndex = _line.LastIndexOf(' ');
+                    string lastName = _line.Substring(lastSpaceIndex + 1);
+                    string givenNames = _line.Substring(0, lastSpaceIndex);
 
-                var person = new Person(givenNames, lastName);
-                result.Add(person);
+                    var person = new Person(givenNames, lastName);
+                    result.Add(person);
+                }
+                file.Close();
+            }
+            catch(FileNotFoundException fileNotFound)
+            {
+                Console.WriteLine("Unable to find unsorted-names-list.txt. Please ensure the file is put in the location below");
+                Console.WriteLine($"{fileNotFound.Message}");
             }
 
-            file.Close();
             return result;
         }
 
