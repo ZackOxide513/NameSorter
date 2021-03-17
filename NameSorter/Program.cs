@@ -9,6 +9,8 @@ namespace NameSorter
     class Program
     {
         private static IContainer _container;
+        
+        // User static constructor to inject into Autofac dependency container and build container
         static Program()
         {
             var builder = new ContainerBuilder();
@@ -19,6 +21,7 @@ namespace NameSorter
 
         static void Main(string[] args)
         {
+            // Resolve for the ISort dependency to perform sorting
             var nameSorter = _container.Resolve<ISort>();
             nameSorter.Sort();
             Console.ReadLine();

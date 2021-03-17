@@ -10,6 +10,8 @@ namespace NameSorter.Sorter
     public class NameSort : ISort
     {
         private IFileHandler _fileHandler;
+        
+        //Inject IFileHandler dependency into this constructor for handling fileIO
         public NameSort(IFileHandler fileHandler)
         {
             _fileHandler = fileHandler;
