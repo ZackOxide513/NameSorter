@@ -10,25 +10,25 @@ namespace NameSorter.FileOperation
 {
     public class FileHandler : IFileHandler
     {
-        private string line;
+        private string _line;
 
         public FileHandler()
         {
-            line = "";
+            _line = "";
         }
 
         public IList<IPerson> ReadFromFile(string filePath)
         {
             IList<IPerson> result = new List<IPerson>();
-            line = "";
+            _line = "";
 
             StreamReader file = new StreamReader(filePath);
-            while ((line = file.ReadLine()) != null)
+            while ((_line = file.ReadLine()) != null)
             {
                 // Get index of last white space to substring GivenNames and LastName
-                var lastSpaceIndex = line.LastIndexOf(' ');
-                string lastName = line.Substring(lastSpaceIndex + 1);
-                string givenNames = line.Substring(0, lastSpaceIndex);
+                var lastSpaceIndex = _line.LastIndexOf(' ');
+                string lastName = _line.Substring(lastSpaceIndex + 1);
+                string givenNames = _line.Substring(0, lastSpaceIndex);
 
                 var person = new Person(givenNames, lastName);
                 result.Add(person);
